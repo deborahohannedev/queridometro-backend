@@ -36,7 +36,6 @@ def seed_data(db: Session):
         ("💣", "Fora da viagem", -3),
     ]
 
-    else:
-        db.add(Emoji(icon=icon, name=name, points=points))
+    db.add(Emoji(icon=icon, name=name, points=points))
 
     db.commit()
