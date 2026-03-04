@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from models import Participant, Emoji
 
 def seed_data(db: Session):
-    if db.query(Participant).count() > 0:
-        return
+    # if db.query(Participant).count() > 0:
+    #     return
 
     participants = [
         "Deborah", "Gabriel", "Daniel", "Katy",
