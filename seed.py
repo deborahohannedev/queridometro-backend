@@ -1,6 +1,8 @@
+import os
 from sqlalchemy.orm import Session
 from models import Participant, Emoji, Vote
 
+update = os.getenv("UPDATE_DATABASE")
 
 def clear_data(db: Session):
     db.query(Vote).delete()
@@ -9,35 +11,36 @@ def clear_data(db: Session):
     db.commit()
 
 def seed_data(db: Session):
-    if db.query(Participant).count() > 0:
+    if update:
+        clear_data(db)
+        participants = [
+            "Deborah", "Gabriel", "Daniel", "Katy",
+            "Maria Eduarda", "Ju", "Maria",
+            "Sandro", "Ritchele"
+        ]
+    
+        for name in participants:
+            db.add(Participant(name=name))
+    
+        emojis = [
+            ("🌅", "Good Vibes", 1),
+            ("🍻", "Parceiro(a)", 1),
+            ("👑", "Líder do Dia", 2),
+            ("⏰", "Atrasado(a)", -1),
+            ("😴", "Dorminhoco(a)", -1),
+            ("💸", "Gastador(a)", -1),
+            ("😶", "Fala demais", -1),
+            ("🥱", "Chato(a)", -2),
+            ("🏃‍♂️", "Forinha", -1),
+            ("🥳", "Inimigo do fim", 2),
+            ("🪴", "Planta", -2),
+            ("👥", "Boa companhia", 2),
+            ("💣", "Fora da viagem", -3),
+        ]
+    
+        for icon, name, points in emojis:
+            db.add(Emoji(icon=icon, name=name, points=points))
+    
+        db.commit()
+    else:
         return
-
-    participants = [
-        "Deborah", "Gabriel", "Daniel", "Katy",
-        "Maria Eduarda", "Ju", "Maria",
-        "Sandro", "Ritchele"
-    ]
-
-    for name in participants:
-        db.add(Participant(name=name))
-
-    emojis = [
-        ("🌅", "Good Vibes", 1),
-        ("🍻", "Parceiro(a)", 1),
-        ("👑", "Líder do Dia", 2),
-        ("⏰", "Atrasado(a)", -1),
-        ("😴", "Dorminhoco(a)", -1),
-        ("💸", "Gastador(a)", -1),
-        ("😶", "Fala demais", -1),
-        ("🥱", "Chato(a)", -2),
-        ("🏃‍♂️", "Forinha", -1),
-        ("🥳", "Inimigo do fim", 2),
-        ("🪴", "Planta", -2),
-        ("👥", "Boa companhia", 2),
-        ("💣", "Fora da viagem", -3),
-    ]
-
-    for icon, name, points in emojis:
-        db.add(Emoji(icon=icon, name=name, points=points))
-
-    db.commit()
