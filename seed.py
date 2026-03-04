@@ -9,8 +9,9 @@ def clear_data(db: Session):
     db.commit()
 
 def seed_data(db: Session):
-    # Limpa tudo antes
-    clear_data(db)
+    if db.query(Participant).count() > 0:
+        return
+
     participants = [
         "Deborah", "Gabriel", "Daniel", "Katy",
         "Maria Eduarda", "Ju", "Maria",
