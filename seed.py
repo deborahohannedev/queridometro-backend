@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models import Participant, Emoji
+from models import Participant, Emoji, Vote
 
 
 def clear_data(db: Session):
