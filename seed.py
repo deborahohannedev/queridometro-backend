@@ -1,18 +1,23 @@
 from sqlalchemy.orm import Session
 from models import Participant, Emoji
 
-def seed_data(db: Session):
-    if db.query(Participant).count() > 0:
-        pass
-    else:
-        participants = [
-            "Deborah", "Gabriel", "Daniel", "Katy",
-            "Maria Eduarda", "Ju", "Maria",
-            "Sandro", "Ritchele"
-        ]
 
-        for name in participants:
-            db.add(Participant(name=name))
+def clear_data(db: Session):
+    db.query(Participant).delete()
+    db.query(Emoji).delete()
+    db.commit()
+
+def seed_data(db: Session):
+    # Limpa tudo antes
+    clear_data(db)
+    participants = [
+        "Deborah", "Gabriel", "Daniel", "Katy",
+        "Maria Eduarda", "Ju", "Maria",
+        "Sandro", "Ritchele"
+    ]
+
+    for name in participants:
+        db.add(Participant(name=name))
 
     emojis = [
         ("🌅", "Good Vibes", 1),
