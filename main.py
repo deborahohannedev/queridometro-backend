@@ -29,7 +29,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://SEU-FRONT.vercel.app"],  # para MVP
+    allow_origins=["https://queridometro-front-beta.vercel.app"],  # para MVP
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
