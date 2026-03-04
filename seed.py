@@ -2,17 +2,17 @@ from sqlalchemy.orm import Session
 from models import Participant, Emoji
 
 def seed_data(db: Session):
-    # if db.query(Participant).count() > 0:
-    #     return
+    if db.query(Participant).count() > 0:
+        pass
+    else:
+        participants = [
+            "Deborah", "Gabriel", "Daniel", "Katy",
+            "Maria Eduarda", "Ju", "Maria",
+            "Sandro", "Ritchele"
+        ]
 
-    participants = [
-        "Deborah", "Gabriel", "Daniel", "Katy",
-        "Maria Eduarda", "Ju", "Maria",
-        "Sandro", "Ritchele"
-    ]
-
-    for name in participants:
-        db.add(Participant(name=name))
+        for name in participants:
+            db.add(Participant(name=name))
 
     emojis = [
         ("🌅", "Good Vibes", 1),
