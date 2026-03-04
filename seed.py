@@ -3,6 +3,7 @@ from models import Participant, Emoji
 
 
 def clear_data(db: Session):
+    db.query(Vote).delete()
     db.query(Participant).delete()
     db.query(Emoji).delete()
     db.commit()
