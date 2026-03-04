@@ -36,13 +36,6 @@ def seed_data(db: Session):
         ("💣", "Fora da viagem", -3),
     ]
 
-    for icon, name, points in emojis:
-        existing = db.query(Emoji).filter_by(icon=icon).first()
-
-        if existing:
-            # Atualiza se mudar descrição ou pontos
-            existing.name = name
-            existing.points = points
     else:
         db.add(Emoji(icon=icon, name=name, points=points))
 
