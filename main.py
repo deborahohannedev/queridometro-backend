@@ -73,3 +73,22 @@ def ranking(db: Session = Depends(get_db)):
     """))
 
     return [{"name": row[0], "score": row[1]} for row in result]
+
+
+def get_votes_report(db: Session):
+    votes = db.query(models.Vote).all()
+    report = []
+    for vote in votes:
+        report.append({
+            "voter": vote.voter.name,
+            "target": vote.target.name,
+            "emoji": vote.emoji.icon,
+            "emoji_name": vote.emoji.name,
+            "points": vote.emoji.points
+        })
+    return report
+
+@app.get("/votes/report")
+def votes_report(db: Session = Depends(get_db)):
+    report = get_votes_report(db)
+    return {"total_votes": len(report), "votes": report}
