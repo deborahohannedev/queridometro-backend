@@ -24,3 +24,7 @@ class Vote(Base):
     target_id = Column(Integer, ForeignKey("participants.id"))
     emoji_id = Column(Integer, ForeignKey("emojis.id"))
     day_number = Column(Integer)
+
+    voter = relationship("Participant", foreign_keys=[voter_id])
+    target = relationship("Participant", foreign_keys=[target_id])
+    emoji = relationship("Emoji")
